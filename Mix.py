@@ -319,3 +319,59 @@ def int_kol(x):
     kol += 1
     x //= 10
   return(kol)
+
+
+
+
+
+
+
+#Проверка числа на простоту, решетом
+#global variabes
+u = []
+start_mas = 2
+
+def is_prime(number):
+  global u
+  global start_mas
+  mas = []
+
+  if len(u) == 0:
+    n_mas = number-1
+    for i in range(0,n_mas):
+      mas.append(start_mas+i)
+    for i in range(len(mas)):
+      if mas[i]==0:
+        continue
+      u.append([mas[i],0])
+      j = i
+      for j in range(i+mas[i],len(mas),mas[i]):
+        mas[j] = 0
+      u[len(u)-1][1]=j+2
+    start_mas += n_mas    
+    if mas[len(mas)-1]==0:
+      return False
+    else:
+      return True
+
+  n_mas = number-start_mas+1
+  mas = []
+  for i in range(0,n_mas):
+    mas.append(start_mas+i)
+  for i in range(len(u)):
+    step = u[i][0]
+    poz = u[i][1]
+    poz += step
+    while poz < start_mas+n_mas:
+      mas[poz-start_mas] = 0
+      poz += step
+    u[i][1] = poz
+
+    start_mas += n_mas    
+    if mas[len(mas)-1]==0:
+      return False
+    else:
+      return True
+#print(is_prime(4))
+#print(is_prime(28))
+#print(is_prime(1001))
